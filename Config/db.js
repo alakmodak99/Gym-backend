@@ -1,5 +1,3 @@
-const mongoose = require("mongoose")
-//console.log(process.env.DB_URL)
-const connect =  ()=> mongoose.connect("mongodb+srv://gym-app-b:gym-app-b@cluster0.cpp908y.mongodb.net/?retryWrites=true&w=majority")
+const mongoose = require("mongoose");
 
-module.exports= connect
+module.exports = ()=> mongoose.connect("mongodb+srv://project99:project99@cluster0.rn1ljwq.mongodb.net/boult-db?retryWrites=true&w=majority");
