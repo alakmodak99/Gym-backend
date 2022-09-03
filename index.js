@@ -7,10 +7,10 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(urlencoded({extended:true}))
-// app.use("/", async (req,res)=>{
-//     return res.send("Connected")
-// })
-app.use("/", controller)
+app.use("/", async (req,res)=>{
+    return res.send("Connected")
+})
+app.use("/users", controller)
 const port = process.env.PORT || 8089
 app.listen(port, async ()=>{
     await connect()
