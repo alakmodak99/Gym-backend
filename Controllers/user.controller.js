@@ -11,11 +11,11 @@ route.get("/", async (req,res)=>{
 
 route.post("/register", async (req,res)=>{
     const check = await userModel.findOne({email: req.body.email})
-    if(check) return res.status(400).send("Someone is already registerd with this email")
+    if(check) return res.status(400).send({reg:false, message:"Someone is already registerd with this email"})
   let Salt = await bcryptjs.genSalt(10)
   req.body.password = await bcryptjs.hash(req.body.password, Salt)
   console.log(req.body)
-  return res.status(200).send({data: await userModel.create(req.body)})
+  return res.status(200).send({data: await userModel.create(req.body),reg:true})
 })
 
 // route.post("/verify-user",async(req,res)=>{
@@ -36,12 +36,12 @@ route.post("/login", async (req,res)=>{
         console.log(checkPass)
         if(checkPass){
             const token = jwt.sign({ email: check.email }, 'alakmodak');
-            return res.status(200).send({"message":"Login SuccessFull",token,user:check})
+            return res.status(200).send({"message":"Login SuccessFull",token,user:check,login:true})
         }else{
-            return res.status(400).send({"message":"Invalid Password"})
+            return res.status(400).send({"message":"Invalid Password",login:false})
         }
     }else{
-        return res.status(400).send({"message":"No user exists with that email"})
+        return res.status(400).send({"message":"No user exists with that email",login:false})
     }
 })
 
