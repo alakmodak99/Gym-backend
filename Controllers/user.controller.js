@@ -1,8 +1,9 @@
 const express = require("express")
+const route = express.Router()
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const route = express.Router()
 const userModel = require("../Model/User.model")
+
 route.get("/", async (req,res)=>{
    return res.status(200).send(await userModel.find())
 })
