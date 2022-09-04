@@ -36,12 +36,12 @@ route.post("/login", async (req,res)=>{
         console.log(checkPass)
         if(checkPass){
             const token = jwt.sign({ email: check.email }, 'alakmodak');
-            return res.status(200).json({"message":"Login SuccessFull",token,user:check})
+            return res.status(200).send({"message":"Login SuccessFull",token,user:check})
         }else{
-            return res.status(400).json({"message":"Invalid Password"})
+            return res.status(400).send({"message":"Invalid Password"})
         }
     }else{
-        return res.status(400).json({"message":"No user exists with that email"})
+        return res.status(400).send({"message":"No user exists with that email"})
     }
 })
 
