@@ -18,14 +18,14 @@ route.post("/register", async (req,res)=>{
   return res.status(200).send({data: await userModel.create(req.body),reg:true})
 })
 
-// route.post("/verify-user",async(req,res)=>{
-//     try{
-//       var decoded = jwt.verify(req.params.id, 'alakmodak');
-//       return res.status(200).send(decoded.email)
-//     }catch(err){
-//       return res.status(400).send(err);
-//     }
-//   })
+route.post("/verify/token",async(req,res)=>{
+    try{
+      var decoded = jwt.verify(req.params.id, 'alakmodak');
+      return res.status(200).send(decoded.email)
+    }catch(err){
+      return res.status(400).send(err);
+    }
+  })
 
 route.post("/login", async (req,res)=>{
     const body = req.body
@@ -35,7 +35,7 @@ route.post("/login", async (req,res)=>{
         const checkPass = await bcryptjs.compare(body.password, check.password)
         console.log(checkPass)
         if(checkPass){
-            const token = jwt.sign({ email: check.email }, 'alakmodak');
+            const token = jwt.sign({ email: check.email }, 'alakmodak',{expiresIn:3600});
             return res.status(200).send({"message":"Login SuccessFull",token,user:check,login:true})
         }else{
             return res.status(400).send({"message":"Invalid Password",login:false})
