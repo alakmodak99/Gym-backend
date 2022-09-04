@@ -36,7 +36,7 @@ route.post("/login", async (req,res)=>{
         console.log(checkPass)
         if(checkPass){
             const token = jwt.sign({ email: check.email }, 'alakmodak',{expiresIn:3600});
-            return res.status(200).send({"message":"Login SuccessFull",token:token,user:check,login:true})
+            return res.status(200).send({"message":"Login SuccessFull, (Token will expire within an hour)",token:token,user:check,login:true})
         }else{
             return res.status(400).send({"message":"Invalid Password",login:false})
         }
